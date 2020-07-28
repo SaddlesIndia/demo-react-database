@@ -20,6 +20,14 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 firebase.analytics()
 
+firebase
+  .firestore()
+  .collection('users')
+  .doc('dummy')
+  .get()
+  .then((doc) => console.log(doc.data()))
+  .catch((reason) => console.log(reason))
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
