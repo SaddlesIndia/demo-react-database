@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { getData, setData } from './Firebase'
+import TestDatabase from './Components/TestDatabase'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,37 +15,9 @@ const useStyles = makeStyles((theme) => ({
 
 function App(props) {
   const classes = useStyles()
-  const [data, setdata] = useState()
-  const [triger, setTriger] = useState(true)
-  const [tempData, setTempData] = useState()
-
-  useEffect(() => {
-    getData('users', 'dummy').then((docuement) => setdata(docuement))
-  }, [triger])
-
-  const newDoc = () => {
-    setData('users', 'dummy', { name: tempData }).then((hmmm) =>
-      hmmm ? setTriger(!triger) : null
-    )
-  }
-
   return (
     <div className={classes.root}>
-      {data ? 'Current Data : ' + data.name : null}
-
-      <TextField
-        id='filled-basic'
-        label='Filled'
-        variant='filled'
-        value={tempData}
-        onChange={(event) => {
-          setTempData(event.target.value)
-        }}
-        style={{ margin: '16px' }}
-      />
-      <Button variant='contained' style={{ margin: '16px' }} onClick={newDoc}>
-        set data
-      </Button>
+      <TestDatabase />
     </div>
   )
 }
