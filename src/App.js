@@ -18,14 +18,17 @@ const useStyles = makeStyles((theme) => ({
 function App(props) {
   const classes = useStyles()
   const [data, setdata] = useState()
+  const [triger, setTriger] = useState(true)
   const [tempData, setTempData] = useState()
 
   useEffect(() => {
     getData('users', 'dummy').then((docuement) => setdata(docuement))
-  }, [])
+  }, [triger])
 
   const newDoc = () => {
-    setData('users', 'dummy', { name: tempData })
+    setData('users', 'dummy', { name: tempData }).then((hmmm) =>
+      hmmm ? setTriger(!triger) : null
+    )
   }
 
   return (
