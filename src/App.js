@@ -1,31 +1,50 @@
 import React, { useEffect, useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
-import { getData } from './Firebase'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import { makeStyles } from '@material-ui/core/styles'
+
+import { getData, setData } from './Firebase'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+  },
+}))
 
 function App(props) {
-  const [data, setData] = useState()
+  const classes = useStyles()
+  const [data, setdata] = useState()
+  const [tempData, setTempData] = useState()
 
   useEffect(() => {
-    getData('users', 'dummy').then((data) => setData(data))
+    getData('users', 'dummy').then((docuement) => setdata(docuement))
   }, [])
 
+  const newDoc = () => {
+    setData('users', 'dummy', { name: tempData })
+  }
+
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          {data ? data.test : null}
-        </a>
-      </header>
+    <div className={classes.root}>
+      {data ? 'Current Data : ' + data.name : null}
+
+      <TextField
+        id='filled-basic'
+        label='Filled'
+        variant='filled'
+        value={tempData}
+        onChange={(event) => {
+          setTempData(event.target.value)
+        }}
+        style={{ margin: '16px' }}
+      />
+      <Button variant='contained' style={{ margin: '16px' }} onClick={newDoc}>
+        set data
+      </Button>
     </div>
   )
 }
