@@ -24,3 +24,9 @@ export const getData = (collection, doc) => {
       .catch((reason) => reject(reason))
   })
 }
+
+export const setData = (collection, doc, data) => {
+  return new Promise((resolve, reject) => {
+    db.collection(collection).doc(doc).set(data, { merge: true })
+  })
+}
