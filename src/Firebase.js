@@ -16,11 +16,16 @@ const db = firebase.firestore(app)
 firebase.analytics()
 
 export const getData = (collection, doc) => {
+  // let dummy
   return new Promise((resolve, reject) => {
     db.collection(collection)
       .doc(doc)
       .get()
-      .then((doc) => resolve({ ...doc.data() }))
+      .then((doc) => {
+        // dummy = { ...doc.data() }
+        // setReadCount('users', 'dummy', dummy.count)
+        resolve({ ...doc.data() })
+      })
       .catch((reason) => reject(reason))
   })
 }
@@ -35,3 +40,14 @@ export const setData = (collection, doc, data) => {
       })
   })
 }
+
+// export const setReadCount = (collection, doc, data) => {
+//   return new Promise((resolve, reject) => {
+//     db.collection(collection)
+//       .doc(doc)
+//       .set({ count: data + 1 }, { merge: true })
+//       .then(() => {
+//         resolve()
+//       })
+//   })
+// }
