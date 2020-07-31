@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
-import { signUp, getData, setData } from '../Firebase'
+import { signUp, getData, setData, signIn } from '../Firebase'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,10 +35,16 @@ const TestAuthentication = () => {
     })
   }
   const handleSubmit = () => {
-    signUp(email, password).then((result) => {
-      console.log(result)
-      newDoc(result)
-    })
+    if (!currentUserID) {
+      signUp(email, password).then((result) => {
+        console.log(result)
+        newDoc(result)
+      })
+    } else {
+      signIn(email, password).then((result) => {
+        console.log(result)
+      })
+    }
   }
 
   const enter = (event) => {
@@ -80,7 +86,9 @@ const TestAuthentication = () => {
         type='password'
         onKeyDown={enter}
       />
-      <Button onClick={handleSubmit}>Sign Up</Button>
+      <Button onClick={handleSubmit}>
+        {!currentUserID ? 'signup' : 'signin'}
+      </Button>
     </div>
   )
 }
