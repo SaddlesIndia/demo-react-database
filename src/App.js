@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import TestDatabase from './Components/TestDatabase'
+import TestAuthenticaton from './Components/TestAuthentication'
+import TestAuthentication from './Components/TestAuthentication'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +19,8 @@ function App(props) {
   const classes = useStyles()
   return (
     <div className={classes.root}>
-      <TestDatabase />
+      <TestAuthentication />
+      {/* <TestDatabase /> */}
     </div>
   )
 }

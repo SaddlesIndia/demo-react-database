@@ -41,6 +41,23 @@ export const setData = (collection, doc, data) => {
   })
 }
 
+export const signUp = (email, password) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => resolve(result.user.uid))
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code
+        var errorMessage = error.message
+        // ...
+
+        reject(errorCode, errorMessage)
+      })
+  })
+}
+
 // export const setReadCount = (collection, doc, data) => {
 //   return new Promise((resolve, reject) => {
 //     db.collection(collection)
