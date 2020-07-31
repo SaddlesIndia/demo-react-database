@@ -68,3 +68,20 @@ export const signUp = (email, password) => {
 //       })
 //   })
 // }
+
+export const signIn = (email, password) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => resolve(result.user.uid))
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code
+        var errorMessage = error.message
+        // ...
+
+        reject(errorCode, errorMessage)
+      })
+  })
+}
