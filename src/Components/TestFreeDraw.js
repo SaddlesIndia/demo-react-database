@@ -29,22 +29,36 @@ export default class Canvas extends Component {
   }
   render() {
     return (
-      <Stage
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onContentMousedown={this.handleMouseDown}
-        onContentMousemove={this.handleMouseMove}
-        onContentMouseup={this.handleMouseUp}
-        ref={(node) => {
-          this.stageRef = node
-        }}
-      >
-        <Layer>
-          {this.state.lines.map((line, i) => (
-            <Line key={i} points={line} stroke='red' />
-          ))}
-        </Layer>
-      </Stage>
+      <>
+        <Stage
+          width={window.innerWidth}
+          height={500}
+          onContentMousedown={this.handleMouseDown}
+          onContentMousemove={this.handleMouseMove}
+          onContentMouseup={this.handleMouseUp}
+          ref={(node) => {
+            this.stageRef = node
+          }}
+          style={{ backgroundColor: 'black' }}
+        >
+          <Layer>
+            {this.state.lines.map((line, i) => (
+              <Line key={i} points={line} stroke='red' />
+            ))}
+          </Layer>
+        </Stage>
+        <Stage
+          width={window.innerWidth}
+          height={500}
+          style={{ border: '5px solid white', backgroundColor: 'black' }}
+        >
+          <Layer>
+            {this.state.lines.map((line, i) => (
+              <Line key={i} points={line} stroke='white' />
+            ))}
+          </Layer>
+        </Stage>
+      </>
     )
   }
 }
