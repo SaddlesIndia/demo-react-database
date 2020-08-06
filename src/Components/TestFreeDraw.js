@@ -2,10 +2,20 @@ import React, { useState } from 'react'
 import { Stage, Layer, Line, Text } from 'react-konva'
 import { makeStyles } from '@material-ui/core/styles'
 
+import Swatch from './Swatch'
+
+const useStyles = makeStyles((theme) => ({
+  activeCanvas: {
+    display: 'flex',
+  },
+}))
+
 const TestCanvas = () => {
+  const classes = useStyles()
   const [lines, setLines] = useState([])
   const [drawing, setDrawing] = useState(false)
   const [stageRef, setStageRef] = useState()
+  const [color, setColor] = useState('red')
 
   const handleMouseDown = () => {
     setDrawing(true)
@@ -26,13 +36,15 @@ const TestCanvas = () => {
       setLines(tempLines.concat())
     }
   }
+  const setCurrentColor = (color) => {
+    setColor(color)
+  }
 
   return (
     <div>
-      <div>
-        {' '}
+      <div className={classes.activeCanvas}>
         <Stage
-          width={window.innerWidth - 30}
+          width={window.innerWidth - 50}
           height={500}
           onContentMousedown={handleMouseDown}
           onContentMousemove={handleMouseMove}
@@ -45,10 +57,11 @@ const TestCanvas = () => {
           <Layer>
             {lines &&
               lines.map((line, i) => (
-                <Line key={i} points={line} stroke='red' />
+                <Line key={i} points={line} stroke={color} />
               ))}
           </Layer>
         </Stage>
+        <Swatch setCurrentColor={setCurrentColor} />
       </div>
       <Stage
         width={window.innerWidth}
