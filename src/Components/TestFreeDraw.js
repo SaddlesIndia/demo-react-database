@@ -1,64 +1,69 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { Stage, Layer, Line, Text } from 'react-konva'
-export default class Canvas extends Component {
-  state = {
-    lines: [],
+import { makeStyles } from '@material-ui/core/styles'
+
+const TestCanvas = () => {
+  const [lines, setLines] = useState([])
+  const [drawing, setDrawing] = useState(false)
+  const [stageRef, setStageRef] = useState()
+
+  const handleMouseDown = () => {
+    setDrawing(true)
+    setLines([...lines, []])
   }
-  handleMouseDown = () => {
-    this._drawing = true
-    this.setState({
-      lines: [...this.state.lines, []],
-    })
+  const handleMouseUp = () => {
+    setDrawing(false)
   }
-  handleMouseUp = () => {
-    this._drawing = false
-  }
-  handleMouseMove = (e) => {
-    if (!this._drawing) {
-      return
+  const handleMouseMove = (e) => {
+    if (drawing === true) {
+      console.log(drawing)
+      const stage = stageRef.getStage()
+      const point = stage.getPointerPosition()
+      const tempLines = lines
+      let lastLine = tempLines[tempLines.length - 1]
+      lastLine = lastLine.concat([point.x, point.y])
+      tempLines.splice(tempLines.length - 1, 1, lastLine)
+      setLines(tempLines.concat())
     }
-    const stage = this.stageRef.getStage()
-    const point = stage.getPointerPosition()
-    const { lines } = this.state
-    let lastLine = lines[lines.length - 1]
-    lastLine = lastLine.concat([point.x, point.y])
-    lines.splice(lines.length - 1, 1, lastLine)
-    this.setState({
-      lines: lines.concat(),
-    })
   }
-  render() {
-    return (
-      <>
+
+  return (
+    <div>
+      <div>
+        {' '}
         <Stage
-          width={window.innerWidth}
+          width={window.innerWidth - 30}
           height={500}
-          onContentMousedown={this.handleMouseDown}
-          onContentMousemove={this.handleMouseMove}
-          onContentMouseup={this.handleMouseUp}
+          onContentMousedown={handleMouseDown}
+          onContentMousemove={handleMouseMove}
+          onContentMouseup={handleMouseUp}
           ref={(node) => {
-            this.stageRef = node
+            setStageRef(node)
           }}
           style={{ backgroundColor: 'black' }}
         >
           <Layer>
-            {this.state.lines.map((line, i) => (
-              <Line key={i} points={line} stroke='red' />
-            ))}
+            {lines &&
+              lines.map((line, i) => (
+                <Line key={i} points={line} stroke='red' />
+              ))}
           </Layer>
         </Stage>
-        <Stage
-          width={window.innerWidth}
-          height={500}
-          style={{ border: '5px solid white', backgroundColor: 'black' }}
-        >
-          <Layer>
-            {this.state.lines.map((line, i) => (
+      </div>
+      <Stage
+        width={window.innerWidth}
+        height={500}
+        style={{ border: '5px solid white', backgroundColor: 'black' }}
+      >
+        <Layer>
+          {lines &&
+            lines.map((line, i) => (
               <Line key={i} points={line} stroke='white' />
             ))}
-          </Layer>
-        </Stage>
-      </>
-    )
-  }
+        </Layer>
+      </Stage>
+    </div>
+  )
 }
+
+export default TestCanvas
