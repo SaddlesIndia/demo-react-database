@@ -13,13 +13,14 @@
     "express": "^4.17.1",
     "firebase": "^7.17.1",
     "fontsource-roboto": "^2.2.6",
+    "konva": "^7.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-konva": "^16.13.0-5",
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start ",
-    "start1": "node server/server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
