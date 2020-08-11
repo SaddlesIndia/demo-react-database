@@ -25,7 +25,7 @@ const Canvas = () => {
 
   const handleClick = (e) => {
     let tempPoints = points
-    setPoints(tempPoints.concat(Array.of(Array.of(e.evt.x, e.evt.y))))
+    setPoints(tempPoints.concat(Array.of(Array.of(e.evt.x, e.evt.y - 50))))
   }
 
   return (
