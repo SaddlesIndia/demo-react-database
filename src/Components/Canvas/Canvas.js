@@ -18,10 +18,16 @@ const Canvas = () => {
   const classes = useStyles()
 
   const [points, setPoints] = useState([
-    [20, 50],
-    [220, 80],
-    [260, 170],
+    // [20, 50],
+    // [220, 80],
+    // [260, 170],
   ])
+
+  const handleClick = (e) => {
+    let tempPoints = points
+    setPoints(tempPoints.concat(Array.of(Array.of(e.evt.x, e.evt.y))))
+  }
+
   return (
     <div className={classes.root}>
       <ToolBar />
@@ -29,6 +35,7 @@ const Canvas = () => {
         width={window.innerWidth}
         height={window.innerWidth / 10}
         className={classes.canvas}
+        onClick={handleClick}
       >
         <Layer>
           <Polygon points={points} />
