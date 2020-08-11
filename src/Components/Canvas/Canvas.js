@@ -3,6 +3,7 @@ import { Stage, Layer } from 'react-konva'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ToolBar from './ToolBar'
+import Polygon from './CustomShape/Polygon'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,9 @@ const Canvas = () => {
         height={window.innerWidth / 10}
         className={classes.canvas}
       >
-        <Layer></Layer>
+        <Layer>
+          <Polygon points={points} />
+        </Layer>
       </Stage>
     </div>
   )
