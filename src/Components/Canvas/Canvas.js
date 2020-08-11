@@ -1,15 +1,31 @@
 import React from 'react'
 import { Stage, Layer } from 'react-konva'
+import { makeStyles } from '@material-ui/core/styles'
 
+import ToolBar from './ToolBar'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  canvas: {
+    backgroundColor: 'black',
+  },
+}))
 const Canvas = () => {
+  const classes = useStyles()
   return (
-    <Stage
-      width={window.innerWidth}
-      height={window.innerWidth / 10}
-      style={{ border: '1px solid #8888' }}
-    >
-      <Layer></Layer>
-    </Stage>
+    <div className={classes.root}>
+      <ToolBar />
+      <Stage
+        width={window.innerWidth}
+        height={window.innerWidth / 10}
+        className={classes.canvas}
+      >
+        <Layer></Layer>
+      </Stage>
+    </div>
   )
 }
 export default Canvas
