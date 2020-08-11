@@ -15,14 +15,18 @@ const Polygon = (props) => {
     context.fillStrokeShape(shape)
   }
   return (
-    <Shape
-      sceneFunc={(context, shape) => draw(context, shape)}
-      fill='#00D2FF'
-      stroke='black'
-      strokeWidth={4}
-      draggable
-      dragDistance={10}
-    />
+    <>
+      {props.points.length > 2 ? (
+        <Shape
+          sceneFunc={(context, shape) => draw(context, shape)}
+          fill='#00D2FF'
+          stroke='black'
+          strokeWidth={4}
+          draggable
+          dragDistance={10}
+        />
+      ) : null}
+    </>
   )
 }
 export default Polygon
