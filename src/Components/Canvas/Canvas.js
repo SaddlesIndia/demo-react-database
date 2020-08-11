@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Stage, Layer } from 'react-konva'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Canvas = () => {
   const classes = useStyles()
+
+  const [points, setPoints] = useState([
+    [20, 50],
+    [220, 80],
+    [260, 170],
+  ])
   return (
     <div className={classes.root}>
       <ToolBar />
