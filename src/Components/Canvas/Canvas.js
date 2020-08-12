@@ -16,20 +16,30 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Canvas = () => {
   const classes = useStyles()
-
-  const [points, setPoints] = useState([
-    // [20, 50],
-    // [220, 80],
-    // [260, 170],
-  ])
+  const [point, setPoint] = useState()
+  const [currentPolygon, setCurrentPolygon] = useState(0)
+  const [polygons, setPolygons] = useState([])
+  const [color, setColor] = useState('red')
 
   const handleClick = (e) => {
-    let tempPoints = points
-    setPoints(tempPoints.concat(Array.of(Array.of(e.evt.x, e.evt.y - 50))))
+    let tpls = polygons || []
+    let tpl = tpls[currentPolygon] || []
+    tpl = tpl.concat(Array.of(Array.of(e.evt.x, e.evt.y - 50)))
+    tpls[currentPolygon] = tpl
+    setPolygons(tpls)
+    setColor(!color)
+    console.log('running')
+  }
+  console.log(color)
+  const exitDraw = (event) => {
+    const code = event.keyCode || event.which
+    if (code === 13) {
+      setCurrentPolygon(currentPolygon + 1)
+    }
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onKeyDown={exitDraw} tabIndex={0}>
       <ToolBar />
       <Stage
         width={window.innerWidth}
@@ -38,7 +48,7 @@ const Canvas = () => {
         onClick={handleClick}
       >
         <Layer>
-          <Polygon points={points} />
+          <Polygon polygons={polygons} color={color} />
         </Layer>
       </Stage>
     </div>
