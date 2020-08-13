@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Stage, Layer } from 'react-konva'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Canvas = () => {
   const classes = useStyles()
-  const [point, setPoint] = useState()
+  const [triger, setTriger] = useState(true)
   const [currentPolygon, setCurrentPolygon] = useState(0)
   const [polygons, setPolygons] = useState([])
   const [color, setColor] = useState('red')
@@ -27,10 +27,9 @@ const Canvas = () => {
     tpl = tpl.concat(Array.of(Array.of(e.evt.x, e.evt.y - 50)))
     tpls[currentPolygon] = tpl
     setPolygons(tpls)
-    setColor(!color)
-    console.log('running')
+    setTriger(!triger)
   }
-  console.log(color)
+
   const exitDraw = (event) => {
     const code = event.keyCode || event.which
     if (code === 13) {
