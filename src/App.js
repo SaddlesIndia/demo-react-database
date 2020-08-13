@@ -4,6 +4,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import TestDatabase from './Components/TestDatabase'
 import TestAuthenticaton from './Components/TestAuthentication'
 import TestAuthentication from './Components/TestAuthentication'
+import TestKonva from './Components/TestKonva'
+import TestFreeDraw from './Components/TestFreeDraw'
+import Canvas from './Components/Canvas/Canvas'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,8 +22,7 @@ function App(props) {
   const classes = useStyles()
   return (
     <div className={classes.root}>
-      <TestAuthentication />
-      {/* <TestDatabase /> */}
+      <Canvas />
     </div>
   )
 }
